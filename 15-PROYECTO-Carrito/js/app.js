@@ -21,7 +21,7 @@ listaCursos.addEventListener('click', agregarCurso);
 // =========================
 // FUNCIONES
 // =========================
-
+''
 // Maneja el click en "Agregar al carrito"
 function agregarCurso(e){
     e.preventDefault(); // Evita recargar la página al hacer click en un <a>
@@ -62,6 +62,9 @@ function leerDatosCurso(curso) {
 function carritoHTML(){
 
     //Limipiar HTML
+    limpiarHTML();
+
+    //Recorre el carrito y genera HTML
     articulosCarrito.forEach(curso=>{
         const row = document.createElement('tr');
         row.innerHTML = `
@@ -79,5 +82,10 @@ function carritoHTML(){
 //Elinar los cursos del tbody
 
 function limpiarHTML(){
-    contendedorCarrito.
+    //forma lenta
+    // contendedorCarrito.innerHTML = '';
+
+    while (contendedorCarrito.firstChild) {
+        contendedorCarrito.removeChild(contendedorCarrito.firstChild)
+    }
 }

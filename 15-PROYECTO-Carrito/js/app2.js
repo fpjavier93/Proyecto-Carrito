@@ -12,8 +12,17 @@ console.log(card)
 const cartContainer = document.querySelector('#lista-carrito tbody');
 console.log(cartContainer);
 
+//creando la variable del boton crear carrito
+const borrarCart = document.querySelector(".button");
+
 //listeners
 courseList.addEventListener('click', handleAddToCart);
+borrarCart.addEventListener('click', ()=>{
+    console.log(borrarCart);
+    cart = [];
+    cleanCart();
+} )
+
 
 
 
@@ -28,8 +37,25 @@ const courseData = {
     id: courseCard.querySelector('a').getAttribute('data-id'),
     cantidad: 1
 };
+console.log(cart);
+
+//Validando q existe un curso repetido
+const existe = cart.some(course=>course.id === courseData.id);
+console.log(existe)
+
 //agregando el objeto seleccionado al array
-cart.push(courseData);
+
+if (!existe) {
+    cart.push(courseData);
+} else{
+    cart = cart.map((course)=>{
+        if (course.id === courseData.id) {
+            course.cantidad++;
+        }
+        return course;
+    })
+}
+
 //funcion para agragar al carrito HTML, la parte visual
 cartHTML(cart);
 }
@@ -57,8 +83,8 @@ cleanCart();
     })
 }
 
-//funcion para limpiar el carrito
-//necesito trabaajr con la variable que tiene el tbody del carrito, NO la del array
+//funcion para limpiar el carrito visual
+//necesito trabajar con la variable que tiene el tbody del carrito, NO la del array
 function cleanCart(){
     while(cartContainer.firstChild){
         cartContainer.removeChild(cartContainer.firstChild)
@@ -80,4 +106,16 @@ function deleteCourse(e) {
     }   
     cartHTML();
 }
+
+//Actualizar la cantidad de elementos en el carrito
+function addCourse(course){
+    cart = cart.map(course=>{
+        course.id
+    })
+
+};
+
+
+
+
 

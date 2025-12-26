@@ -14,10 +14,16 @@ document.addEventListener('DOMContentLoaded', function () {
     const formulario = this.documentElement.querySelector('#formulario');
     const btnSubmit = document.querySelector('#formulario button[type="submit"]')
     const btnReset = document.querySelector('#formulario button[type="reset"]')
-    //extra mio, agregando texto al final del formulario
-    const newText = document.createElement('P');//variable que almacena el texto HTML
-    newText.textContent = "hola" // texto
-    formulario.appendChild(newText); //agregando texto al final del formulario
+    const spinner = document.querySelector('#spinner');
+    //alerta de exito
+    function succesSend() {
+        const newText = document.createElement('P');//variable que almacena el texto HTML
+        newText.classList.add('bg-green-500', 'text-white', 'p-2', 'text-center');
+        newText.textContent = "Mensaje enviado con exito" // texto
+        formulario.appendChild(newText); //agregando texto al final del formulario
+        return newText;
+    }
+
 
 
     //asignar evento
@@ -25,15 +31,21 @@ document.addEventListener('DOMContentLoaded', function () {
     inputEmail.addEventListener('blur', validar);
     inputAsunto.addEventListener('blur', validar);
     inputMensaje.addEventListener('blur', validar);
+    formulario.addEventListener('submit', enviarEmail)
     btnReset.addEventListener('click', (e) => {
         e.preventDefault();
+        cleanObject();
+    });
+
+    //funcion para limpiar objeto
+    function cleanObject() {
         formulario.reset();
         email.email = "";
         email.asunto = "";
         email.mensaje = "";
         comprobarEmail();
         formulario.reset();
-    });
+    }
 
     //creando una funcion reutilizable
     function validar(e) {
@@ -105,7 +117,23 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    function enviarEmail(e) {
+        e.preventDefault();
+        spinner.classList.add('flex');
+        spinner.classList.remove('hidden');
 
+        setTimeout(() => {
+            spinner.classList.add('hidden');
+            spinner.classList.remove('flex');
+            cleanObject();
+            const mesage = succesSend();
+                    setTimeout(() => {
+                    mesage.remove();
+                }, 2000);
+        }, 3000);
+
+
+    }
 
 });
 

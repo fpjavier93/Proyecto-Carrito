@@ -9,6 +9,10 @@ const color = document.querySelector('#color');
 const result = document.querySelector('#resultado');
 const maxYear = new Date().getFullYear();
 const minYear = maxYear - 10;
+const noResult = document.createElement('P');
+
+
+result.appendChild(noResult);
 
 //agrupando en un solo array los even Listener
 const select = [marca, year, minPrice, maxPrice, doors, transmision, color];
@@ -18,7 +22,7 @@ const select = [marca, year, minPrice, maxPrice, doors, transmision, color];
 
 //Generar un objeto
 
-const datosBusqueda = {
+const objBusqueda = {
     marca: '',
     year: '',
     minimo: '',
@@ -60,18 +64,29 @@ select.forEach(propiety => {
 //Funciones
 function fillObject(e) {
     const { id } = e.target
-    datosBusqueda[id] = e.target.value;
-    console.log(datosBusqueda);
-    const filtro = filterCars(datosBusqueda);
-    console.log(filtro);
+    objBusqueda[id] = e.target.value;
+    const filtro = filterCars(objBusqueda);
+    clearHTML();
+    if (!filtro) {
+        noResult.textContent = 'NO hay resultados';
+        result.appendChild(noResult);
+    } else {
+        showCars(filtro);
+    }
+
 }
 
+function clearHTML() {
+    while (result.firstChild) {
+        result.removeChild(result.firstChild);
+    }
+}
 function validateObject(obj) {
     return !Object.values(obj).includes('');
 };
 
-function showCars() {
-    autos.forEach(auto => {
+function showCars(filtro) {
+    filtro.forEach(auto => {
         const { marca, modelo, year, precio, puertas, color, transmision } = auto;
         const showCar = document.createElement('P');
         showCar.textContent = `
@@ -96,61 +111,66 @@ function filterCars() {
         .filter(filterTrans)
         .filter(filterColor);
 
-    return resultado;
+    if (resultado.length) {
+        return resultado;
+    } else {
+        return false;
+    }
+    //noResult.textContent = 'NO hay resultados';
 }
-        function filterMarca(auto) {
+function filterMarca(auto) {
 
-    if (datosBusqueda.marca) { //existe?
-        return auto.marca === datosBusqueda.marca; //entonces devuelve true o false
+    if (objBusqueda.marca) { //existe?
+        return auto.marca === objBusqueda.marca; //entonces devuelve true o false
     }
     return true;
 };
 
 function filterYear(auto) {
-    if (datosBusqueda.year) {
+    if (objBusqueda.year) {
         //es mejor convertir manualmente el string del objeto a numero que poner ==, es mala practica
         //y puede ocacionar bugs.
-        return Number(datosBusqueda.year) === auto.year;
+        return Number(objBusqueda.year) === auto.year;
     }
     return true;
 }
 
 function filterPrecMin(auto) {
 
-    if (datosBusqueda.minimo) {
-        return Number(datosBusqueda.minimo) <= auto.precio;
+    if (objBusqueda.minimo) {
+        return Number(objBusqueda.minimo) <= auto.precio;
     }
     return true;
 };
 
 function filterPrecMax(auto) {
 
-    if (datosBusqueda.maximo) {
-        return Number(datosBusqueda.maximo) >= auto.precio;
+    if (objBusqueda.maximo) {
+        return Number(objBusqueda.maximo) >= auto.precio;
     }
     return true;
 };
 
 function filterDoors(auto) {
 
-    if (datosBusqueda.puertas) {
-        return Number(datosBusqueda.puertas) === auto.puertas;
+    if (objBusqueda.puertas) {
+        return Number(objBusqueda.puertas) === auto.puertas;
     }
     return true;
 };
 
 function filterTrans(auto) {
 
-    if (datosBusqueda.transmision) {
-        return datosBusqueda.transmision === auto.transmision;
+    if (objBusqueda.transmision) {
+        return objBusqueda.transmision === auto.transmision;
     }
     return true;
 };
 
 function filterColor(auto) {
 
-    if (datosBusqueda.color) {
-        return datosBusqueda.color === auto.color;
+    if (objBusqueda.color) {
+        return objBusqueda.color === auto.color;
     }
     return true;
 };

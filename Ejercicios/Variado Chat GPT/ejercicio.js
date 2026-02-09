@@ -1,67 +1,42 @@
-let tasks = [];
-let idCounter = 0;
-//Creando object constructor
-function TaskObject(title) {
-    this.id = Date.now() + idCounter++,//asi garantizo q los ID sean unicos
-        this.title = title,
-        this.completed = false;
-};
-
-//funciones
-function addTask(title) {
-    if (title.trim() === '') {
-        return;
+class User {
+    constructor(name, email, active = true) {
+        this.name = name;
+        this.email = email;
+        this.active = active;
     }
-    const task = new TaskObject(title)
-    tasks.push(task)
-
-};
-
-function listarTareas() {
-    tasks.forEach(task => {
-        console.log(
-            task.completed ? `[x]${objtask.title}` : `[ ]${objtask.title}`
-        )
-    })
-}
-
-
-
-function completarTarea(tareaCompletar) {
-    let findTask = tasks.find((task) => {
-        return task.title == tareaCompletar;
-    });
-    if (!findTask) {
-        return 'la tarea no existe'
+    deactivate() {
+        this.active = false;
     }
-    findTask.completed = true;
-    return findTask;
-
+    activate(){
+        this.active = true;
+    }
+    getInfo(){
+       const getInfo = `Usuario: ${this.name} | Email: ${this.email} | Activo: ${this.active}`
+       return getInfo;
+    }
 }
-function deleteTask(taskDeleted) {
-    tasks = tasks.filter((task) => task.title != taskDeleted);
-    return tasks;
+
+//Usuario activo
+const usuario = new User('Javier', 'fpjavier93@gmail.com');
+
+console.log(usuario.getInfo());
+
+//Usuario inactivo
+const usuario2 = new User('Javier', 'fpjavier93@gmail.com');
+
+usuario2.deactivate();
+
+console.log(usuario2.getInfo());
+
+const showInfo = usuario.getInfo.bind(usuario);
+console.log(showInfo());
+
+
+
+function saludox() {
+    return 'Holaaaaa'
 }
 
-//llamando funciones
-addTask('',);
-addTask('Estudiar');
-addTask('Jugar');
-addTask('Comer');
-addTask('Dormir');
+const saludiss = saludox;
 
-console.log('1-Mostrando el array de objetos');
-console.log(tasks);
-console.log('2-Mostrando las tareas');
-listarTareas()
-console.log('3-Completar tarea');
-console.log(completarTarea('Comer'));
-console.log(completarTarea('dsd'));
-listarTareas();
-console.log('4-Borrar tarea');
-console.log(deleteTask('Dormir'));
-listarTareas()
-
-
-
-
+console.log(saludiss());

@@ -1,39 +1,45 @@
 "use strict";
 
-const productos = [
-  { nombre: "Teclado mecánico", precio: 220, stock: 5 },
-  { nombre: "Mouse gamer", precio: 150, stock: 10 },
-  { nombre: "Auriculares", precio: 180, stock: 0 },
-  { nombre: "Silla ergonómica", precio: 850, stock: 2 },
-  { nombre: "Monitor 27''", precio: 1300, stock: 3 }
-];
-console.log(productos);
+//Ejercicio para pintar un cuadrado
 
-const nuevosProdutos = productos.map((producto)=>{
-    let nuevoPrecio;
-    if (producto.stock > 0) {
-       nuevoPrecio = producto.precio > 500? producto.precio * 0.80 : producto.precio;
-    }else{
-        nuevoPrecio = "Agotado"
+// function drawGift(size, symbol) {
+//     let gift = [];
+
+//     gift.push(symbol.repeat(size));
+
+//     for (let i = 0; i < size - 2; i++) {
+//         gift.push(
+//             symbol + ' '.repeat(size - 2) + symbol
+//         );
+
+//     }
+
+//     gift.push(symbol.repeat(size));
+
+
+//     return gift.join('\n')
+
+// }
+
+
+// console.log(drawGift(8, "*"));
+
+// console.log('************************************************');
+
+
+let line = '[1++][2-][3+][<]'
+
+
+function desifratingCode(line) {
+    
+    let code = [];
+    code = line.match(/\[(.*?)\]/g);
+    console.log(code);
+
+    for (let i = 0; i < code.length; i++) {
+        
+        
     }
-    return {nombre: producto.nombre, precio: nuevoPrecio, stock: producto.stock};
-});
+};
 
-console.log(nuevosProdutos);
-
-nuevosProdutos.map(({nombre,precio,stock}) => {
-    if (typeof precio != "string") {
-        console.log(`${nombre} tiene un precio de ${precio} y quedan ${stock}`);
-    }
-    else{
-        console.log(`${nombre} esta ${precio}`);
-    }
-}); 
-
-const calcularGananciaTotal = nuevosProdutos.reduce((acumulador, actual,index) =>{
-    if (typeof acumulador.stock != "string") {
-       return acumulador * actual;
-    }
-});
-
-
+desifratingCode(line);

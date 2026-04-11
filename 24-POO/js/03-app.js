@@ -20,7 +20,7 @@ class Empresa extends Cliente {
         this.telefono = telefono;
         this.categoria = categoria;
     }
-    //va a sustitui en static de la clase padre por la clase hijo
+    //va a sustituir en static de la clase padre por la clase hijo
     static bienvenida(){
         return 'holaaaaa desde empresa'
     }

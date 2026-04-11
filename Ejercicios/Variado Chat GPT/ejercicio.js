@@ -1,42 +1,43 @@
-class User {
-    constructor(name, email, active = true) {
-        this.name = name;
-        this.email = email;
-        this.active = active;
-    }
-    deactivate() {
-        this.active = false;
-    }
-    activate(){
-        this.active = true;
-    }
-    getInfo(){
-       const getInfo = `Usuario: ${this.name} | Email: ${this.email} | Activo: ${this.active}`
-       return getInfo;
-    }
-}
+let tasks = [];
 
-//Usuario activo
-const usuario = new User('Javier', 'fpjavier93@gmail.com');
+const addTask = task => new Promise((resolve, reject) => {
+    setTimeout(() => {
+        if (task) {
+            tasks.push(task);
+            resolve(`Tarea ${task} agregada`);
+        } else {
+            reject('No se agrego tarea');
+        }
 
-console.log(usuario.getInfo());
+    }, 2000);
+});
 
-//Usuario inactivo
-const usuario2 = new User('Javier', 'fpjavier93@gmail.com');
+function showTask() {
+    setTimeout(() => {
+        console.log(tasks);
+    }, 1000);
+};
 
-usuario2.deactivate();
-
-console.log(usuario2.getInfo());
-
-const showInfo = usuario.getInfo.bind(usuario);
-console.log(showInfo());
-
-
-
-function saludox() {
-    return 'Holaaaaa'
-}
-
-const saludiss = saludox;
-
-console.log(saludiss());
+addTask('Comer')
+    .then(result => {
+        console.log(result);
+        return addTask()
+    })
+    .catch(error => {
+        console.log(error);
+        return 'Error manejado';
+    })
+    .then(result => {
+        console.log(result);
+        return addTask('Dormir')
+    })
+    .then(result => {
+        console.log(result);
+        return addTask()
+    }).then(result=>{
+        showTask();
+    })
+    .catch(error=>{
+        console.log(error);
+        showTask()
+    });

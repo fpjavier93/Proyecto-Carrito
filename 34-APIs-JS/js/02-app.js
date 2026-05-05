@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded',()=>{
 
-    const observer =  new IntersectionObserver( entries => {
+    const obsPremiumn =  new IntersectionObserver( entries => {
         if(entries[0].isIntersecting){
             console.log('esta a la vista Premium')
         } else{
@@ -9,5 +9,5 @@ document.addEventListener('DOMContentLoaded',()=>{
         
     } );
 
-        observer.observe(document.querySelector('.premium'))
+        obsPremiumn.observe(document.querySelector('.premium'))
     })
